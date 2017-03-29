@@ -2,12 +2,10 @@
 
 #include "Haptic_Resp_Linear_Controller.h"
 
-int i=0;
-char buf[3];
 
 void setup() {
 
-  pinMode(latchPin, OUTPUT); 
+  pinMode(latchPinRed, OUTPUT); 
   pinMode(positionPin0, INPUT); 
   pinMode(positionPin1, INPUT); 
   pinMode(positionPin2, INPUT); 
@@ -16,16 +14,15 @@ void setup() {
   pinMode(positionPin5, INPUT); 
   pinMode(positionPin6, INPUT); 
   pinMode(positionPin7, INPUT); 
-  //pinMode(positionPin8, INPUT); 
   pinMode(directionPin, INPUT); 
   pinMode(SEL1, OUTPUT);
   pinMode(SEL2, OUTPUT);
-  pinMode(resetPin, OUTPUT);
+  pinMode(resetPinRed, OUTPUT);
   
-  digitalWrite(resetPin,LOW);
+  digitalWrite(resetPinRed,LOW);
   delay(100);
-  digitalWrite(resetPin,HIGH);
-  digitalWrite(latchPin, HIGH);
+  digitalWrite(resetPinRed,HIGH);
+  digitalWrite(latchPinRed, HIGH);
 
   Serial.begin (9600);
 
@@ -58,42 +55,47 @@ void setup() {
   setPwmFrequency(9, 1);
   //analogWrite(pwmPin, 127);
   desiredPosition = 180; //*radius;
-  pwmSpeed=0;
+  pwmSpeedRed=0;
   //analogWrite(pwmPin, pwmSpeed);
   
-  initPosition =0;
+  initPositionRed =0;
   sei();//allow interrupts 
   //cli();//stop interrupts
-  pastVelocity = 0;
+  pastVelocityRed = 0;
   startTime = micros();
   setupMotor();
-  wall = 50;
-  redMotorDir = OFF;
-  setRedMotorSpeed(0, redMotorDir);
+  xBoundary = 30; //red motor is x
+  yBoundary = 30; //blue motor is y
+  redMotorDir = OUTWARD;
+  setRedMotorSpeed(250, redMotorDir);
+  findStartPosition();
+  pwmSpeedRed = 150;
   }
 
 void loop() {
 
-  readSerialCommand();
+  //readSerialCommand();
+
   
   //Path Control
   //setMotorSpeed();
 
-  //Step Response Computation
-  
-
-  //Haptic Interface
-  /*if (actualPosition < wall) {
+ 
+  //Haptic Interface - vibration
+  /*if (actualPositionRed < xBoundary) {
     redMotorDir = INWARD;
-    setRedMotorSpeed(100, redMotorDir);
+    pwmSpeedRed = 100;
+    setRedMotorSpeed(pwmSpeedRed, redMotorDir);
     delay(10);
     redMotorDir = OUTWARD;
-    setRedMotorSpeed(200, redMotorDir);
+    pwmSpeedRed = 200;
+    setRedMotorSpeed(pwmSpeedRed, redMotorDir);
     delay(30);
   }
   else {
     redMotorDir = OFF;
-    setRedMotorSpeed(0, redMotorDir);
+    pwmSpeedRed = 0;
+    setRedMotorSpeed(pwmSpeedRed, redMotorDir);
   }*/
 
   
@@ -107,13 +109,22 @@ void loop() {
   //setMotorSpeedHaptic(velocity);
   delay(10);*/
   
-  //measure position
-  //Serial.println (actualPosition);
+  //measure Step Response
+ /* if(millis() > 200){
+    redMotorDir = OFF;
+    setRedMotorSpeed(0, redMotorDir);
+  }/*
+  else if(millis() > 850){
+    redMotorDir = OUTWARD;
+    setRedMotorSpeed(250, redMotorDir);
+  }*/
+  
+  Serial.println (actualPositionRed);
   //Serial.println (millis());
 }
 
 ISR(TIMER2_COMPA_vect){//timer2 interrupt 8kHz calculates position
-    actualPosition = computePosition();
+    actualPositionRed = computePosition();
 }
 
 /*ISR(TIMER0_COMPA_vect){//timer0 interrupt 2kHz calculates position

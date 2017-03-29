@@ -6,7 +6,7 @@ double computePosition (){
   static int positionArr[10];
   
   encoder0Pos = 0;
-  digitalWrite(latchPin, LOW);
+  digitalWrite(latchPinRed, LOW);
   digitalWrite(SEL1, HIGH);
   digitalWrite(SEL2, LOW);
   
@@ -66,6 +66,6 @@ double computePosition (){
     if (positionArr[i]==1)
       encoder0Pos = encoder0Pos + powerToTwo[i];
   }
-  digitalWrite(latchPin, HIGH);
+  digitalWrite(latchPinRed, HIGH);
   return (double) encoder0Pos;
 }

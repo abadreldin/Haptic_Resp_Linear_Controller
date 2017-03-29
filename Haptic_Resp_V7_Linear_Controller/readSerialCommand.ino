@@ -1,3 +1,7 @@
+
+int i=0;
+char buf[3];
+
 void readSerialCommand (){
   if (Serial.available()>0){
     

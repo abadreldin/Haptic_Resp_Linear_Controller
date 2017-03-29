@@ -1,15 +1,7 @@
 
+//blue inward is outward -- reversed from red 
 
-#define redMotorCoil1A 1
-#define redMotorCoil1B 2
-#define redMotorCoil2A 3
-#define redMotorCoil2B 4
 
-/*#define blueMotorCoil1A 5
-#define blueMotorCoil1B 6
-#define blueMotorCoil2A 7
-#define blueMotorCoil2B 8
-*/
 
 int a = 0;
 int b = 0;
@@ -40,21 +32,9 @@ void setupMotor() {
 //where direction 0 = off, direction 1: pinA=HIGH, pinB= LOW, and direction 2: pinA=LOW and pinB=HIGH
 //where coil 1 refers to pins redMotorCoil1A 1, and redMotorCoil1B and coil 2 refers to redMotorCoil2A 1, and redMotorCoil2B
 
-void setRedMotorSpeed( int pwmSpeed, directions redMotor){
-
-  //directions redMotor = redMotorDir;
+void setRedMotorSpeed( int pwmSpeed, directions redMotorDir){
   
   switch(redMotorDir){
-    case OUTWARD:
-      //redMotorCoil1 in direction 2
-      analogWrite(redMotorCoil1A, LOW);
-      analogWrite(redMotorCoil1B, pwmSpeed);
-
-      //redMotorCoil2 in direction 1
-      analogWrite(redMotorCoil2A, pwmSpeed);
-      analogWrite(redMotorCoil2B, LOW);
-      break;
-      
     case INWARD:
       //redMotorCoil1 in direction 1
       analogWrite(redMotorCoil1A, pwmSpeed);
@@ -65,6 +45,17 @@ void setRedMotorSpeed( int pwmSpeed, directions redMotor){
       analogWrite(redMotorCoil2B, pwmSpeed);
       break;
       
+    case OUTWARD:
+      //redMotorCoil1 in direction 2
+      analogWrite(redMotorCoil1A, LOW);
+      analogWrite(redMotorCoil1B, pwmSpeed);
+
+      //redMotorCoil2 in direction 1
+      analogWrite(redMotorCoil2A, pwmSpeed);
+      analogWrite(redMotorCoil2B, LOW);
+      break;
+      
+    
     case OFF: //off
       //redMotorCoil1 in direction 0
       analogWrite(redMotorCoil1A, LOW);
