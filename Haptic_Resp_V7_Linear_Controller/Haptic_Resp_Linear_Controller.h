@@ -1,76 +1,74 @@
-
-#define pwmPin 10
-#define increment 1
-#define mulFactor 0.9
-#define MAX 400
+#define MAX 256
 #define MIN 0
-#define arrSize 10
-#define radius 1.0
 
-//#define positionPin8 2
-#define positionPin7 5 //D7
-#define positionPin6 6
-#define positionPin5 7
-#define positionPin4 8
-#define positionPin3 9
-#define positionPin2 10
-#define positionPin1 11
-#define positionPin0 12 //D0
+#define redPositionPin7 5 //D7
+#define redPositionPin6 6
+#define redPositionPin5 7
+#define redPositionPin4 8
+#define redPositionPin3 9
+#define redPositionPin2 10
+#define redPositionPin1 11
+#define redPositionPin0 12 //D0
 #define directionPin 13//ignore
-#define latchPinRed A5 //OEN
-#define resetPinRed A2 //Reset 
-#define SEL1 A1
-#define SEL2 A0
+#define redLatchPin A5 //OEN
+#define redResetPin A2 //Reset 
+#define redSEL1 A1
+#define redSEL2 A0
 
-#define redMotorCoil1A A4 //black
-#define redMotorCoil1B 2 //white
-#define redMotorCoil2A 3 //grey
-#define redMotorCoil2B 4 //purple
-
-/*#define blueMotorCoil1A 5
-#define blueMotorCoil1B 6
-#define blueMotorCoil2A 7
-#define blueMotorCoil2B 8
-*/
-
+#define bluePositionPin7 5 //D7
+#define bluePositionPin6 6
+#define bluePositionPin5 7
+#define bluePositionPin4 8
+#define bluePositionPin3 9
+#define bluePositionPin2 10
+#define bluePositionPin1 11
+#define bluePositionPin0 12 //D0
+#define directionPin 13//ignore
+#define blueLatchPin A5 //OEN
+#define blueResetPin A2 //Reset 
+#define blueSEL1 A1
+#define blueSEL2 A0
 
 #define pGain 2
 
 #define timerInterrupt 0.000125
 #define degToRad 0.01745329251
 
-
+////////////////////////////////////////////////////////////////////////////////////
 typedef enum {
   OFF,
   INWARD,
   OUTWARD
 }directions;
 
+directions redMotorDir = OFF;
+directions BlueMotorDir = OFF;
+////////////////////////////////////////////////////////////////////////////////////
+
 double displacementRed, displacementBlue;
 double velocityRed = 0, pastVelocityRed = 0;
 double velocityBlue = 0, pastVelocityBlue = 0;
 unsigned long startTime;
-double actualPositionRed, timeElapsedRed, desiredPositionRed, initialPositionRed;
-double actualPositionBlue, timeElapsed, desiredPosition, initialPosition;
+double redActualPosition, redTimeElapsed, redDesiredPosition, redInitialPosition;
+double blueActualPosition, TimeElapsed, desiredPosition, initialPosition;
 double acutalPosition;
 double xBoundary = 0, yBoundary=0;;
 double sum = 0;
-int pwmSpeedRed = 0;
-int pwmSpeedBlue = 0;
+int redPwmSpeed = 0;
+int bluePwmSpeed = 0;
 bool hapticFeedback = 0;
 
-
-boolean toggle2 = 0;
-double s=0;
-double tempActualPositionRed, tempActualPositionBlue;
+double redTempActualPosition, blueTempActualPosition;
 double initPositionRed, initPositionBlue;
 
-directions redMotorDir = OFF;
-directions BlueMotorDir = OFF;
+/////////////////////////////////////////////////////////////////////////////////////////
 
 void setPwmFrequency(int pin, int divisor);
-void setRedMotorSpeed( int pwmSpeed, directions redMotor);
-void setupMotor (void);
+void setRedMotorSpeed( int redPwmSpeed, directions redMotor);
+void setRedMotorSpeed( int bluePwmSpeed, directions blueMotor);
+void motorSetup (void);
+void timerSetup (void);
+void decoderSetup (void);
 double computePosition ();
 void readSerialCommand();
 void findStartPosition();

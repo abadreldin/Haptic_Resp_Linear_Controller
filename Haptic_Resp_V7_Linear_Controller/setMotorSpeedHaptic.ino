@@ -1,3 +1,5 @@
+// NEED TO CHANGE 
+
 /*void setMotorSpeedHaptic (double velocity){
 
   pwmSpeed = (int)computeHapticP (velocity);
