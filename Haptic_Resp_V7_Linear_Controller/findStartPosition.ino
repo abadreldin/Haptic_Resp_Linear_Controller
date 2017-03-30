@@ -5,40 +5,40 @@ void findStartPosition (){
 //RED MOTOR BOUNDS - X
   setRedMotorSpeed(230, OUTWARD);
   delay(200);
-  int pastPosition = actualPositionRed;
+  int pastPosition = redActualPosition;
   Serial.println (pastPosition);
   delay(100);
-  int currentPosition = actualPositionRed;
+  int currentPosition = redActualPosition;
   
   Serial.println (currentPosition);
   while ( currentPosition != pastPosition){
     pastPosition=currentPosition;
     delay(200);
-    currentPosition = actualPositionRed;
+    currentPosition = redActualPosition;
   }
   setRedMotorSpeed(0, OFF);
-  digitalWrite(resetPinRed,LOW);
+  digitalWrite(redResetPin,LOW);
   delay(100);
-  digitalWrite(resetPinRed,HIGH);
-  digitalWrite(latchPinRed, HIGH); 
+  digitalWrite(redResetPin,HIGH);
+  digitalWrite(redLatchPin, HIGH); 
   Serial.println ("FINISHED INITIALIZATION");
 /*
 //BLUE MOTOR BOUNDS - Y
   setBlueMotorSpeed(100, INWARD)
-  pastPosition = actualPositionBlue;
+  pastPosition = blueActualPosition;
   delay(100);
-  currentPosition = actualPositionBlue;
+  currentPosition = blueActualPosition;
   
   while ( currentPosition != pastPosition){
     pastPosition=currentPosition;
     delay(100);
-    currentPosition = actualPositionBlue;
+    currentPosition = blueActualPosition;
   }
   
   setBlueMotorSpeed(0, OFF)
-  digitalWrite(resetPinBlue,LOW);
+  digitalWrite(blueResetPin,LOW);
   delay(100);
-  digitalWrite(resetPinBlue,HIGH);
-  digitalWrite(latchPinBlue, HIGH); */
+  digitalWrite(blueResetPin,HIGH);
+  digitalWrite(blueLatchPin, HIGH); */
 }
 

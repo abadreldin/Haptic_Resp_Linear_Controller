@@ -1,8 +1,10 @@
+// NEED TO CHANGE 
+// APPLIES TO BOTH -- NEED TO BE CHANGED TO RED AND BLUE
+
 #define KI 0.000006041
 #define KD 0.005094
 #define KP 0.0004342
 #define timeInterrupt 10
-
 
 double computeHapticPath (double actualPosition){
   //static double previousPosition;
@@ -17,6 +19,7 @@ double computeHapticPath (double actualPosition){
   s += error*KP;
 
   derivative = error/timeInterrupt*1000; //assuming the timer is in milliseconds, and I want velocity in rad/s in 
+
 
   s += derivative*KD;
 

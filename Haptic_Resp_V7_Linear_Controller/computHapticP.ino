@@ -1,10 +1,12 @@
+//NEED TO CHANGE//APPLIED TO RED MOTOR
+
 #define KPinit 0
 #define FALSE 0
 #define TRUE 1
 
 double computeHapticP (double velocity){
   static double previousPosition =0;
-  static double error = desiredPositionRed - actualPositionRed;
+  static double error = redDesiredPosition - redActualPosition;
   static double kP = 1.5;
   static double s = 0;
   bool flagLimit = FALSE;

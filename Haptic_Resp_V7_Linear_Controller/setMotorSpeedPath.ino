@@ -1,17 +1,19 @@
-void setMotorSpeedPath (){
+///NEED TO CHANGE
+
+void redSetMotorSpeedPath (){
  // - review how computeVelocity function is set up! on timer interrupts
  //pwmSpeed = velocity*2;
   static double tempPosition;
-  tempPosition= actualPositionRed;
-  pwmSpeedRed = computeHapticPath(tempPosition);
-  pwmSpeedRed = (int) pwmSpeedRed*18.5185185185/50*3;  
-  Serial.println (pwmSpeedRed);
+  tempPosition= redActualPosition;
+  redPwmSpeed = computeHapticPath(tempPosition);
+  redPwmSpeed = (int) redPwmSpeed*18.5185185185/50*3;  
+  Serial.println (redPwmSpeed);
   //Serial.println (actualPositionRed);
-  if( pwmSpeedRed > 0){
-  setRedMotorSpeed( pwmSpeedRed, INWARD);
+  if( redPwmSpeed > 0){
+  setRedMotorSpeed( redPwmSpeed, INWARD);
   }
-  else if (pwmSpeedRed< 0){
-  setRedMotorSpeed( abs(pwmSpeedRed), OUTWARD);
+  else if (redPwmSpeed< 0){
+  setRedMotorSpeed( abs(redPwmSpeed), OUTWARD);
   }
 }
 
