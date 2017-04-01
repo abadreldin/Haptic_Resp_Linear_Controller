@@ -29,22 +29,22 @@ void setRedMotorSpeed( int redPwm, directions redMotorDir){
   switch(redMotorDir){
     case OUTWARD:
       //redMotorCoil1 in direction 1
-      analogWrite(redMotorCoil1A, redPwmSpeed);
+      analogWrite(redMotorCoil1A, redPwm);
       analogWrite(redMotorCoil1B, LOW);
 
       //redMotorCoil2 in direction 2
-      analogWrite(redMotorCoil2A, redPwmSpeed);
+      analogWrite(redMotorCoil2A, redPwm);
       analogWrite(redMotorCoil2B, LOW);
       break;
       
     case INWARD:
       //redMotorCoil1 in direction 2
       analogWrite(redMotorCoil1A, LOW);
-      analogWrite(redMotorCoil1B, redPwmSpeed);
+      analogWrite(redMotorCoil1B, redPwm);
 
       //redMotorCoil2 in direction 1
       analogWrite(redMotorCoil2A, LOW);
-      analogWrite(redMotorCoil2B, redPwmSpeed);
+      analogWrite(redMotorCoil2B, redPwm);
       break;
       
     
@@ -72,27 +72,27 @@ void setRedMotorSpeed( int redPwm, directions redMotorDir){
 
 
 
-void setBlueMotorSpeed( int bluepwm, directions blueMotorDir){
+void setBlueMotorSpeed( int bluePwm, directions blueMotorDir){
   
   switch(blueMotorDir){
     case OUTWARD:
       //redMotorCoil1 in direction 1
-      analogWrite(blueMotorCoil1A, bluePwmSpeed);
+      analogWrite(blueMotorCoil1A, bluePwm);
       analogWrite(blueMotorCoil1B, LOW);
 
       //redMotorCoil2 in direction 2
-      analogWrite(blueMotorCoil2A, bluePwmSpeed);
+      analogWrite(blueMotorCoil2A, bluePwm);
       analogWrite(blueMotorCoil2B, LOW);
       break;
       
     case INWARD:
       //redMotorCoil1 in direction 2
       analogWrite(blueMotorCoil1A, LOW);
-      analogWrite(blueMotorCoil1B, bluePwmSpeed);
+      analogWrite(blueMotorCoil1B, bluePwm);
 
       //redMotorCoil2 in direction 1
       analogWrite(blueMotorCoil2A, LOW);
-      analogWrite(blueMotorCoil2B, bluePwmSpeed);
+      analogWrite(blueMotorCoil2B, bluePwm);
       break;
       
     

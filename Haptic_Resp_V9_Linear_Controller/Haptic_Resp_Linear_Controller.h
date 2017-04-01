@@ -73,7 +73,7 @@
 #define degToRad 0.01745329251
 
 
-#define blueMotorEn 11
+#define blueMotorEn A0 //11 since I broke the lead
 #define blueMotorCoil1A 10 //black
 #define blueMotorCoil1B 9 //white
 #define blueMotorCoil2A 8 //grey
@@ -104,7 +104,9 @@ typedef enum {
   PATH,
   WELL,
   HILL,
-  MOTOROFF
+  MOTOROFF,
+  INNERSQUARE,
+  OUTERSQUARE
 }actions;
 
 actions hapticSystem =  SQUARE;
@@ -118,14 +120,12 @@ double displacementRed, displacementBlue;
 double velocityRed = 0, pastVelocityRed = 0;
 double velocityBlue = 0, pastVelocityBlue = 0;
 unsigned long startTime;
-double redActualPosition, redTimeElapsed, redDesiredPosition, redInitialPosition;
-double blueActualPosition, TimeElapsed, desiredPosition, initialPosition;
+int redActualPosition, redTimeElapsed, redDesiredPosition, redInitialPosition;
+int blueActualPosition, TimeElapsed, desiredPosition, initialPosition;
 double acutalPosition;
-double xBoundaryMin = 0, yBoundaryMin=0;
-double xBoundaryMax = 0, yBoundaryMax=0;
+int xBoundaryMin = 0, yBoundaryMin=0;
+int xBoundaryMax = 0, yBoundaryMax=0;
 double sum = 0;
-int redPwmSpeed = 0;
-int bluePwmSpeed = 0;
 bool hapticFeedback = 0;
 
 double redTempActualPosition, blueTempActualPosition;

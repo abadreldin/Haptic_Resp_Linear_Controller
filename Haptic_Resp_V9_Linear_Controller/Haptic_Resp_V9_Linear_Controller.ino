@@ -14,19 +14,19 @@ void setup() {
   startTime = micros();
   //xBoundary = 50; //red motor is x
   //yBoundary = 50; //blue motor is y
-  xBoundaryMin = 30; //red motor is x
-  yBoundaryMin = 30; //blue motor is y
-  xBoundaryMax = 80; //red motor is x
-  yBoundaryMax = 80; //blue motor is y
+  xBoundaryMin = 20; //red motor is x
+  yBoundaryMin = 20; //blue motor is y
+  xBoundaryMax = 60; //red motor is x
+  yBoundaryMax = 60; //blue motor is y
 
   // Start with motors off
-  redPwmSpeed = 0;
+  /*redPwmSpeed = 0;
   redMotorDir = OFF;
   setRedMotorSpeed(redPwmSpeed, redMotorDir);
   
   bluePwmSpeed = 0;
   blueMotorDir = OFF;
-  setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+  setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);*/
 
   sei();//allow interrupts 
   //cli();//stop interrupts
@@ -35,11 +35,12 @@ void setup() {
   //hapticSystemAction (hapticSystem);
   Serial.println("Please select a mode: SQUARE (1), CIRCLE (2), CORNER (3),");
   Serial.println("TRACEBACK (4), PATH (5), WELL (6), HILL (7)");   
+  Serial.println("INNER SQUARE (8), OUTER SQUARE (9)");
 
   }
 
 void loop() {
-
+  //setRedMotorSpeed(150, OUTWARD);
   //readSerialCommand();
  
   if (Serial.available()>0){
@@ -48,7 +49,7 @@ void loop() {
     if (int(buf[i])==13 || int(buf[i])==11 ){  //If Carriage return has been reached
      
       int result=atoi(buf);
-      if (result > 7 || result < 1){
+      if (result > 9 || result < 1){
         Serial << " ERROR, please select a valid number" << "\n";
       }
       else{
@@ -95,6 +96,18 @@ void loop() {
           delay(2000);
           break;
 
+          case 8:
+          Serial << "You have selected INNERSQUARE mode" << "\n";
+          hapticSystem = INNERSQUARE;
+          delay(2000);
+          break;
+
+          case 9:
+          Serial << "You have selected OUTERSQUARE mode" << "\n";
+          hapticSystem = OUTERSQUARE;
+          delay(2000);
+          break;
+          
           default:
           Serial << "You have selected OFF mode" << "\n";
           hapticSystem = MOTOROFF;
@@ -116,10 +129,6 @@ void loop() {
 
     hapticSystemAction (hapticSystem);
 
-  /*blueMotorDir = OUTWARD;
-  bluePwmSpeed = 200;
-  setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);*/
-  
   
   //Haptic Control
   //Serial.println (velocity);
