@@ -1,14 +1,13 @@
 void findStartPosition (){
+  
 // code pushes Red motor to one corner, until not reading any change in position (reached boundary), 
 // then pushes blue motor to end until not reading any change in position, then press reset on decoder
 
 //RED MOTOR BOUNDS - X
 
-  redPwmSpeed = 120;
-  redMotorDir = OUTWARD;
-  setRedMotorSpeed(redPwmSpeed, redMotorDir);
+  setRedMotorSpeed(170, OUTWARD);
   
-  delay(200);
+  delay(300);
   int pastPosition = redActualPosition;
   Serial.println (pastPosition);
   delay(100);
@@ -29,11 +28,10 @@ void findStartPosition (){
   Serial.println ("FINISHED INITIALIZATION");
 
 //BLUE MOTOR BOUNDS - Y
-  bluePwmSpeed = 150;
-  blueMotorDir = OUTWARD;
-  setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+
+  setBlueMotorSpeed(170, OUTWARD);
   pastPosition = blueActualPosition;
-  delay(200);
+  delay(300);
   currentPosition = blueActualPosition;
   
   while ( currentPosition != pastPosition){
