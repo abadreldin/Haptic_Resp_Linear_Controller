@@ -10,12 +10,10 @@ void setup() {
 
   //setPwmFrequency(9, 1);
   
-  pastVelocityRed = 0;
-  startTime = micros();
   //xBoundary = 50; //red motor is x
   //yBoundary = 50; //blue motor is y
-  xBoundaryMin = 20; //red motor is x
-  yBoundaryMin = 20; //blue motor is y
+  xBoundaryMin = 30; //red motor is x
+  yBoundaryMin = 30; //blue motor is y
   xBoundaryMax = 60; //red motor is x
   yBoundaryMax = 60; //blue motor is y
 
@@ -23,19 +21,19 @@ void setup() {
   /*redPwmSpeed = 0;
   redMotorDir = OFF;
   setRedMotorSpeed(redPwmSpeed, redMotorDir);
-  
-  bluePwmSpeed = 0;
-  blueMotorDir = OFF;
-  setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);*/
+  */
+  //bluePwmSpeed = 250;
+  //blueMotorDir = OUTWARD;
+  //setBlueMotorSpeed(250, blueMotorDir);
 
   sei();//allow interrupts 
   //cli();//stop interrupts
   findStartPosition();
   hapticSystem = MOTOROFF;
-  //hapticSystemAction (hapticSystem);
-  Serial.println("Please select a mode: SQUARE (1), CIRCLE (2), CORNER (3),");
-  Serial.println("TRACEBACK (4), PATH (5), WELL (6), HILL (7)");   
-  Serial.println("INNER SQUARE (8), OUTER SQUARE (9)");
+  hapticSystemAction (hapticSystem);
+  //Serial.println("Please select a mode: SQUARE (1), CIRCLE (2), CORNER (3),");
+  //Serial.println("TRACEBACK (4), PATH (5), WELL (6), HILL (7)");   
+  //Serial.println("INNER SQUARE (8), OUTER SQUARE (9), CORNSTARCH WALL (10), BUTTON (11)");
   
   }
 
@@ -49,7 +47,7 @@ void loop() {
     if (int(buf[i])==13 || int(buf[i])==11 ){  //If Carriage return has been reached
      
       int result=atoi(buf);
-      if (result > 9 || result < 1){
+      if (result > 10 || result < 1){
         Serial << " ERROR, please select a valid number" << "\n";
       }
       else{
@@ -107,6 +105,18 @@ void loop() {
           hapticSystem = OUTERSQUARE;
           delay(2000);
           break;
+
+          /*case 10:
+          Serial << "You have selected BUTTON mode" << "\n";
+          hapticSystem = BUTTON;
+          delay(2000);
+          break;*/
+
+          case 10:
+          Serial << "You have selected CORNSTARCH WALL mode" << "\n";
+          hapticSystem = CORNSTARCHWALL;
+          delay(2000);
+          break;
           
           default:
           Serial << "You have selected OFF mode" << "\n";
@@ -129,35 +139,7 @@ void loop() {
 
     hapticSystemAction (hapticSystem);
     
-    if(printCounter > 1000){
-      Serial << redActualPosition <<" " << blueActualPosition << "\n";
-      printCounter =0;
-    }
     printCounter ++;
-  //Haptic Control
-  //Serial.println (velocity);
-  /*startTime = micros();
-  tempActualPosition = actualPosition;
-  velocity = (abs(tempActualPosition - initPosition))/(micros()-startTime); //degToRad*1000000;
-  Serial.println (velocity,6);
-  initPosition = tempActualPosition;
-  //setMotorSpeedHaptic(velocity);
-  delay(10);*/
-  
-  //measure Step Response
- /* if(millis() > 200){
-    redMotorDir = OFF;
-    setRedMotorSpeed(0, redMotorDir);
-  }/*
-  else if(millis() > 850){
-    redMotorDir = OUTWARD;
-    setRedMotorSpeed(250, redMotorDir);
-  }*/
-  
-
-  //Serial << "x = " << redActualPosition <<", y = " << blueActualPosition << "\n";
-  //delay(100);
-  //Serial.println (millis());
 }
 
 ISR(TIMER1_COMPA_vect){//timer1 interrupt 2kHz calculates position

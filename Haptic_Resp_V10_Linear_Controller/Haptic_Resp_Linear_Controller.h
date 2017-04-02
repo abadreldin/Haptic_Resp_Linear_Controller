@@ -73,11 +73,11 @@
 #define degToRad 0.01745329251
 
 
-#define blueMotorEn A0 //11 since I broke the lead
-#define blueMotorCoil1A 10 //black
-#define blueMotorCoil1B 9 //white
-#define blueMotorCoil2A 8 //grey
-#define blueMotorCoil2B 7 //purple
+#define blueMotorEn 7 
+#define blueMotorCoil1A 9 //black
+#define blueMotorCoil1B 8 //white
+#define blueMotorCoil2A 11 //grey
+#define blueMotorCoil2B 10 //purple
 
 #define redMotorEn 2
 #define redMotorCoil1A 6
@@ -106,10 +106,12 @@ typedef enum {
   HILL,
   MOTOROFF,
   INNERSQUARE,
-  OUTERSQUARE
+  OUTERSQUARE,
+  BUTTON,
+  CORNSTARCHWALL
 }actions;
 
-actions hapticSystem =  SQUARE;
+actions hapticSystem =  MOTOROFF;
 ////////////////////////////////////////////////////////////////////////////////////
 
 int i=0;
@@ -117,8 +119,8 @@ char buf[3];
 
 
 double displacementRed, displacementBlue;
-double velocityRed = 0, pastVelocityRed = 0;
-double velocityBlue = 0, pastVelocityBlue = 0;
+double redVelocity = 0, redPastVelocity = 0;
+double blueVelocity = 0, bluePastVelocity = 0;
 unsigned long startTime;
 int redActualPosition, redTimeElapsed, redDesiredPosition, redInitialPosition;
 int blueActualPosition, TimeElapsed, desiredPosition, initialPosition;
@@ -127,9 +129,6 @@ int xBoundaryMin = 0, yBoundaryMin=0;
 int xBoundaryMax = 0, yBoundaryMax=0;
 double sum = 0;
 bool hapticFeedback = 0;
-
-double redTempActualPosition, blueTempActualPosition;
-double initPositionRed, initPositionBlue;
 
 int printCounter =0;
 
@@ -145,5 +144,6 @@ double computePosition ();
 void readSerialCommand();
 void findStartPosition();
 void hapticSystemAction ( actions hapticSystem);
+void setMotorSpeedHaptic (double motorVelocity);
 
 template<class T> inline Print &operator <<(Print &obj, T arg) { obj.print(arg); return obj; }

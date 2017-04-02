@@ -1,3 +1,4 @@
+#define strengthFactor 15
 void hapticSystemAction ( actions hapticSystem){
 
   static int redPwmSpeed = 0;
@@ -9,72 +10,109 @@ void hapticSystemAction ( actions hapticSystem){
 
       if ((redActualPosition >= xBoundaryMax)&& (blueActualPosition <= yBoundaryMin)) {
             redMotorDir = OUTWARD;
-            redPwmSpeed = 100;
-            //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
-            setRedMotorSpeed(redPwmSpeed, redMotorDir);
+            redPwmSpeed = strengthFactor*(redActualPosition - xBoundaryMax);
+            if (redPwmSpeed >255)
+              setRedMotorSpeed(255, redMotorDir);
+            else
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+              
             blueMotorDir = INWARD;
-            bluePwmSpeed = 100;
-            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+            bluePwmSpeed = strengthFactor*(yBoundaryMin - blueActualPosition);
+            if (bluePwmSpeed >255)
+              setBlueMotorSpeed(255, blueMotorDir);
+            else
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
       }
       else if ((redActualPosition >= xBoundaryMax)&& (blueActualPosition >= yBoundaryMax)) {
             redMotorDir = OUTWARD;
-            redPwmSpeed = 100;
-            //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
-            setRedMotorSpeed(redPwmSpeed, redMotorDir);
+            redPwmSpeed = strengthFactor*(redActualPosition - xBoundaryMax);
+            if (redPwmSpeed >255)
+              setRedMotorSpeed(255, redMotorDir);
+            else
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+              
             blueMotorDir = OUTWARD;
-            bluePwmSpeed = 140;
-            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+            bluePwmSpeed = strengthFactor*(blueActualPosition - yBoundaryMax);
+            if (bluePwmSpeed >255)
+              setBlueMotorSpeed(255, blueMotorDir);
+            else
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
       }
       else if ((redActualPosition <= xBoundaryMin)&& (blueActualPosition >= yBoundaryMax)) {
             redMotorDir = INWARD;
-            redPwmSpeed = 100;
-            //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
-            setRedMotorSpeed(redPwmSpeed, redMotorDir);
+            redPwmSpeed = strengthFactor*(xBoundaryMin - redActualPosition);
+            if (redPwmSpeed >255)
+              setRedMotorSpeed(255, redMotorDir);
+            else
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+              
             blueMotorDir = OUTWARD;
-            bluePwmSpeed = 100;
-            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+            bluePwmSpeed = strengthFactor*(blueActualPosition - yBoundaryMax);
+            if (bluePwmSpeed >255)
+              setBlueMotorSpeed(255, blueMotorDir);
+            else
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
       }
       else if ((redActualPosition <= xBoundaryMin)&& (blueActualPosition <= yBoundaryMin)) {
             redMotorDir = INWARD;
-            redPwmSpeed = 100;
-            //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
-            setRedMotorSpeed(redPwmSpeed, redMotorDir);
+            redPwmSpeed = strengthFactor*(xBoundaryMin - redActualPosition);
+            if (redPwmSpeed >255)
+              setRedMotorSpeed(255, redMotorDir);
+            else
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+              
             blueMotorDir = INWARD;
-            bluePwmSpeed = 100;
-            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+            bluePwmSpeed = strengthFactor*(yBoundaryMin - blueActualPosition);
+            if (bluePwmSpeed >255)
+              setBlueMotorSpeed(255, blueMotorDir);
+            else
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
       }
-      else if ((redActualPosition <= (xBoundaryMin))&& (redActualPosition <= 40) && (blueActualPosition >= yBoundaryMin) && (blueActualPosition <= yBoundaryMax)) {
+      else if ((redActualPosition <= (xBoundaryMin))&& (redActualPosition <= 40) ){//&& (blueActualPosition > yBoundaryMin) && (blueActualPosition < yBoundaryMax)) {
             redMotorDir = INWARD;
-            redPwmSpeed = 200;
-            //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
-            setRedMotorSpeed(redPwmSpeed, redMotorDir);
+            redPwmSpeed = strengthFactor*(xBoundaryMin - redActualPosition);
+            redPwmSpeed = 255;
+            if (redPwmSpeed > 255)
+              setRedMotorSpeed(255, redMotorDir);
+            else
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+
             blueMotorDir = OFF;
             bluePwmSpeed = 0;
             setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
       }
-      else if ((redActualPosition >= (xBoundaryMax)) && (redActualPosition >= 40) && (blueActualPosition >= yBoundaryMin) && (blueActualPosition <= yBoundaryMax)) {
+      else if ((redActualPosition >= (xBoundaryMax)) && (redActualPosition >= 40) && (blueActualPosition > yBoundaryMin) && (blueActualPosition < yBoundaryMax)) {
             redMotorDir = OUTWARD;
-            redPwmSpeed = 200;
-            //redPwmSpeed = (100 +10*(xBoundaryMax - redActualPosition));
-            setRedMotorSpeed(redPwmSpeed, redMotorDir);
+            redPwmSpeed = strengthFactor*(redActualPosition - xBoundaryMax);
+            if (redPwmSpeed >255)
+              setRedMotorSpeed(255, redMotorDir);
+            else
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+              
             blueMotorDir = OFF;
             bluePwmSpeed = 0;
             setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
       }
       else if ((blueActualPosition <= (yBoundaryMin))&& (blueActualPosition <= 40) && (redActualPosition >= xBoundaryMin) && (redActualPosition <= xBoundaryMax)) {
             blueMotorDir = INWARD;
-            bluePwmSpeed = 230;
-            //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
-            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+            bluePwmSpeed = strengthFactor*(yBoundaryMin - blueActualPosition);
+            if (bluePwmSpeed >255)
+              setBlueMotorSpeed(255, blueMotorDir);
+            else
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+             
             redMotorDir = OFF;
             redPwmSpeed = 0;
             setRedMotorSpeed(redPwmSpeed, redMotorDir);
       }
       else if ((blueActualPosition >= (yBoundaryMax)) && (blueActualPosition >= 40) && (redActualPosition >= xBoundaryMin) && (redActualPosition <= xBoundaryMax)) {
             blueMotorDir = OUTWARD;
-            bluePwmSpeed = 230;
-            //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
-            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+            bluePwmSpeed = strengthFactor*(blueActualPosition - yBoundaryMax);
+            if (bluePwmSpeed >255)
+              setBlueMotorSpeed(255, blueMotorDir);
+            else
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+
             redMotorDir = OFF;
             redPwmSpeed = 0;
             setRedMotorSpeed(redPwmSpeed, redMotorDir);
@@ -88,64 +126,104 @@ void hapticSystemAction ( actions hapticSystem){
             setRedMotorSpeed(redPwmSpeed, redMotorDir);
      
       }
-    
+
+    if(printCounter > 130){
+      Serial << redActualPosition <<" " << blueActualPosition << "\n";
+      printCounter =0;
+    }
     break;
     
     //pushes the user outside of the square
     case OUTERSQUARE:
-    if ((redActualPosition > (xBoundaryMin-5))&& (redActualPosition < 40) && (blueActualPosition > yBoundaryMin) && (blueActualPosition < yBoundaryMax)) {
-            redMotorDir = OUTWARD;
-            redPwmSpeed = 150;
-            //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
-            setRedMotorSpeed(redPwmSpeed, redMotorDir);
-            blueMotorDir = OFF;
-            bluePwmSpeed = 0;
-            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
-      }
-      else if ((redActualPosition < (xBoundaryMax + 5 )) && (redActualPosition >= 40) && (blueActualPosition > yBoundaryMin) && (blueActualPosition < yBoundaryMax)) {
-            redMotorDir = INWARD;
-            redPwmSpeed = 150;
-            //redPwmSpeed = (100 +10*(xBoundaryMax - redActualPosition));
-            setRedMotorSpeed(redPwmSpeed, redMotorDir);
-            blueMotorDir = OFF;
-            bluePwmSpeed = 0;
-            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
-      }
-      else if ((blueActualPosition > (yBoundaryMin-5))&& (blueActualPosition < 40) && (redActualPosition > xBoundaryMin) && (redActualPosition < xBoundaryMax)) {
-            blueMotorDir = OUTWARD;
-            bluePwmSpeed = 150;
-            //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
-            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
-            redMotorDir = OFF;
-            redPwmSpeed = 0;
-            setRedMotorSpeed(redPwmSpeed, redMotorDir);
-      }
-      else if ((blueActualPosition < (yBoundaryMax + 5 )) && (blueActualPosition >= 40) && (redActualPosition > xBoundaryMin) && (redActualPosition < xBoundaryMax)) {
-            blueMotorDir = INWARD;
-            bluePwmSpeed = 150;
-            //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
-            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
-            redMotorDir = OFF;
-            redPwmSpeed = 0;
-            setRedMotorSpeed(redPwmSpeed, redMotorDir);
-      }
-      else {
-            blueMotorDir = OFF;
-            bluePwmSpeed = 0;
-            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
-            redMotorDir = OFF;
-            redPwmSpeed = 0;
-            setRedMotorSpeed(redPwmSpeed, redMotorDir);
-     
-      }
+        if ((redActualPosition <= xBoundaryMax)&& (blueActualPosition >= yBoundaryMin)) {
+              redMotorDir = INWARD;
+              redPwmSpeed = 100;
+              //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+              blueMotorDir = OUTWARD;
+              bluePwmSpeed = 100;
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+        }
+        else if ((redActualPosition <= xBoundaryMax)&& (blueActualPosition <= yBoundaryMax)) {
+              redMotorDir = INWARD;
+              redPwmSpeed = 100;
+              //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+              blueMotorDir = INWARD;
+              bluePwmSpeed = 140;
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+        }
+        else if ((redActualPosition >= xBoundaryMin)&& (blueActualPosition <= yBoundaryMax)) {
+              redMotorDir = OUTWARD;
+              redPwmSpeed = 100;
+              //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+              blueMotorDir = INWARD;
+              bluePwmSpeed = 100;
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+        }
+        else if ((redActualPosition >= xBoundaryMin)&& (blueActualPosition >= yBoundaryMin)) {
+              redMotorDir = OUTWARD;
+              redPwmSpeed = 100;
+              //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+              blueMotorDir = OUTWARD;
+              bluePwmSpeed = 100;
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+        }
+        else if ((redActualPosition >= (xBoundaryMin)) && (blueActualPosition >= yBoundaryMin) && (blueActualPosition <= yBoundaryMax)) {
+              redMotorDir = OUTWARD;
+              redPwmSpeed = 200;
+              //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+              blueMotorDir = OFF;
+              bluePwmSpeed = 0;
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+        }
+        else if ((redActualPosition <= (xBoundaryMax))  && (blueActualPosition >= yBoundaryMin) && (blueActualPosition <= yBoundaryMax)) {
+              redMotorDir = INWARD;
+              redPwmSpeed = 200;
+              //redPwmSpeed = (100 +10*(xBoundaryMax - redActualPosition));
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+              blueMotorDir = OFF;
+              bluePwmSpeed = 0;
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+        }
+        else if ((blueActualPosition >= (yBoundaryMin))&& (blueActualPosition <= 40) && (redActualPosition >= xBoundaryMin) && (redActualPosition <= xBoundaryMax)) {
+              blueMotorDir = OUTWARD;
+              bluePwmSpeed = 230;
+              //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+              redMotorDir = OFF;
+              redPwmSpeed = 0;
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+        }
+        else if ((blueActualPosition <= (yBoundaryMax)) && (blueActualPosition >= 40) && (redActualPosition >= xBoundaryMin) && (redActualPosition <= xBoundaryMax)) {
+              blueMotorDir = INWARD;
+              bluePwmSpeed = 230;
+              //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+              redMotorDir = OFF;
+              redPwmSpeed = 0;
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+        }
+        else {
+              blueMotorDir = OFF;
+              bluePwmSpeed = 0;
+              setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+              redMotorDir = OFF;
+              redPwmSpeed = 0;
+              setRedMotorSpeed(redPwmSpeed, redMotorDir);
+       
+        }
     //Serial << "x = " << redActualPosition <<", y = " << blueActualPosition << "\n";
-    Serial << redActualPosition <<" " << blueActualPosition << "\n";
+    //Serial << redActualPosition <<" " << blueActualPosition << "\n";
     break;
     case SQUARE:
     //////////////// work with corners of square
        /*if ((redActualPosition > (xBoundaryMin-10))&& (redActualPosition <= (xBoundaryMin)) && (blueActualPosition > yBoundaryMin) && (blueActualPosition < yBoundaryMax)) {
             redMotorDir = OUTWARD;
-            redPwmSpeed = 150;
+            redPwmSpeed = 200;
             //redPwmSpeed = (100 +10*(xBoundaryMin - redActualPosition));
             setRedMotorSpeed(redPwmSpeed, redMotorDir);
             blueMotorDir = OFF;
@@ -402,10 +480,25 @@ void hapticSystemAction ( actions hapticSystem){
         bluePwmSpeed = 0;
         setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
       break;
+      
     case HILL:
-        blueMotorDir = OFF;
-        bluePwmSpeed = 0;
-        setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+    //the larger the position (closer to the edge of the mechanism, the harder you want to roll down the hill) - in the x direction
+        if (redActualPosition < 39){
+          redMotorDir = OUTWARD;
+          redPwmSpeed = redActualPosition*(170/40);
+          setRedMotorSpeed(redPwmSpeed, redMotorDir);
+        }
+        else if(redActualPosition > 43){
+          redMotorDir = INWARD;
+          redPwmSpeed = (85 -redActualPosition)*(170/40);
+          setRedMotorSpeed(redPwmSpeed, redMotorDir);
+        }
+        else{
+          redMotorDir = OFF;
+          redPwmSpeed = 0;
+          setRedMotorSpeed(redPwmSpeed, redMotorDir);
+        }
+       Serial << "x = " << redActualPosition <<", y = " << blueActualPosition << "\n";
       break;
     case MOTOROFF:
         blueMotorDir = OFF;
@@ -415,6 +508,79 @@ void hapticSystemAction ( actions hapticSystem){
         redPwmSpeed = 0;
         setRedMotorSpeed(redPwmSpeed, redMotorDir);
     break;
+    case BUTTON:
+        if (redActualPosition < 40){
+          redMotorDir = OFF;
+          redPwmSpeed = 0;
+          setRedMotorSpeed(redPwmSpeed, redMotorDir);
+        }
+        else if(redActualPosition > 50 && redActualPosition <52){
+          redMotorDir = OUTWARD;
+          redPwmSpeed = 250;
+          setRedMotorSpeed(redPwmSpeed, redMotorDir);
+        }
+        else if(redActualPosition <= 50 && redActualPosition > 48){
+          redMotorDir = OFF;
+          redPwmSpeed = 0;
+          setRedMotorSpeed(redPwmSpeed, redMotorDir);
+        }
+        else{
+          redMotorDir = OUTWARD;
+          redPwmSpeed = (50 - redActualPosition)*(170/10);
+          setRedMotorSpeed(redPwmSpeed, redMotorDir);
+        }
+    break;
+    
+    //case MOVING WALL:
+    //break;
+
+    case CORNSTARCHWALL:
+      // Wall that is hard if you hit it quickly, but soft if you hit slowly
+
+  
+      static int redTempActualPosition, blueTempActualPosition;
+      static int redInitPosition, blueInitPosition;
+      const static int wall = 40;
+      
+      //Calculate current velocity
+      startTime = micros();
+      redTempActualPosition = redActualPosition;
+      redVelocity = (double)(redTempActualPosition - redInitPosition)/(micros()-startTime)* 1000/125;
+      
+      Serial.println(redVelocity);
+      redInitPosition = redTempActualPosition;
+
+      //execute haptic feedback depending on position and incoming speed
+
+      if((redActualPosition < wall) && (redActualPosition > (wall + 30)) && (redVelocity >= 0)){
+        redMotorDir = OUTWARD;
+        redVelocity = (redVelocity + 100)*20;
+        if(redVelocity >255)
+          setRedMotorSpeed(255, redMotorDir);
+        else
+          setRedMotorSpeed(redVelocity, redMotorDir);
+        Serial << redVelocity << "\n";
+      }
+      else if((redActualPosition > wall) && (redActualPosition < (wall + 30)) && (redVelocity <= 0)){
+        redMotorDir = INWARD;
+        redVelocity = abs((redVelocity + 100)*20);
+        if(redVelocity >255)
+          setRedMotorSpeed(255, redMotorDir);
+        else
+          setRedMotorSpeed(redVelocity, redMotorDir);
+        setRedMotorSpeed(redVelocity, redMotorDir);
+        Serial << redVelocity << "\n";
+      }
+      else{
+        blueMotorDir = OFF;
+        setBlueMotorSpeed(0, blueMotorDir);
+        redMotorDir = OFF;
+        setRedMotorSpeed(0, redMotorDir);
+        Serial <<"0 \n";
+      }
+      
+    break;
+    
     default:
         blueMotorDir = OFF;
         bluePwmSpeed = 0;
@@ -424,3 +590,12 @@ void hapticSystemAction ( actions hapticSystem){
 
 }
 
+/*void redBlueMotorSpeed ( directions redMotorDirection, directions blueMotorDirection, int bluePwmSpeed
+  blueMotorDir = OFF;
+  bluePwmSpeed = 0;
+  setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+  redMotorDir = OFF;
+  redPwmSpeed = 0;
+  setRedMotorSpeed(redPwmSpeed, redMotorDir);
+
+}*/
