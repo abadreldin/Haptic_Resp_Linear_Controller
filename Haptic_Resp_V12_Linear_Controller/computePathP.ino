@@ -1,9 +1,9 @@
 // NEED TO CHANGE 
 // APPLIES TO BOTH -- NEED TO BE CHANGED TO RED AND BLUE
 
-#define KI 0.000006041
-#define KD 0.005094
-#define KP 0.0004342
+#define KI 1.27217711615332e-11
+#define KD 0.0934626171836411
+#define KP 2.60336362444743e-06
 #define timeInterrupt 10
 
 double computeHapticPath (double actualPosition){
@@ -12,7 +12,7 @@ double computeHapticPath (double actualPosition){
   static double derivative;
   static double error;
 
-  error = desiredPosition - actualPosition;
+  error = redDesiredPosition - actualPosition;
   s += error;
   s *= KI;
 

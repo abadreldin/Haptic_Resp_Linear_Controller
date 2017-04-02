@@ -108,7 +108,8 @@ typedef enum {
   INNERSQUARE,
   OUTERSQUARE,
   BUTTON,
-  CORNSTARCHWALL
+  CORNSTARCHWALL,
+  DIAGONAL
 }actions;
 
 actions hapticSystem =  MOTOROFF;
@@ -122,7 +123,9 @@ double displacementRed, displacementBlue;
 double redVelocity = 0, redPastVelocity = 0;
 double blueVelocity = 0, bluePastVelocity = 0;
 unsigned long startTime;
-int redActualPosition, redTimeElapsed, redDesiredPosition, redInitialPosition;
+int redActualPosition, redTimeElapsed;
+int redDesiredPosition = 50;
+int redInitialPosition;
 int blueActualPosition, TimeElapsed, desiredPosition, initialPosition;
 double acutalPosition;
 int xBoundaryMin = 0, yBoundaryMin=0;
