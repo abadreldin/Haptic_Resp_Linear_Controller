@@ -5,7 +5,7 @@ from collections import deque
 import msvcrt
 import serial
 
-ser = serial.Serial(port = 'COM7',\
+ser = serial.Serial(port = 'COM8',\
                     baudrate = 9600,\
                     timeout = None,\
                     xonxoff=False,\
