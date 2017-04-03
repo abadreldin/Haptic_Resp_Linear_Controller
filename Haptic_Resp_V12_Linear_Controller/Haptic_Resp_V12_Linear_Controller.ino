@@ -38,7 +38,7 @@ void setup() {
   }
 
 void loop() {
-  //setRedMotorSpeed(150, OUTWARD);
+  
 
  
   if (Serial.available()>0){
@@ -47,7 +47,7 @@ void loop() {
     if (int(buf[i])==13 || int(buf[i])==11 ){  //If Carriage return has been reached
      
       int result=atoi(buf);
-      if (result > 12 || result < 1){
+      if (result > 100 || result < 1){
         Serial << " ERROR, please select a valid number" << "\n";
       }
       else{
@@ -124,6 +124,12 @@ void loop() {
           delay(2000);
           break;
           
+          case 99:
+          //Serial << "You have selected OFF mode" << "\n";
+          hapticSystem = MOTOROFF;
+          delay(2000);
+          break;
+
           default:
           //Serial << "You have selected OFF mode" << "\n";
           hapticSystem = MOTOROFF;

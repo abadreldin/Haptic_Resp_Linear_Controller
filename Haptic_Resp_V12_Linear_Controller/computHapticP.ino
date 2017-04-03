@@ -6,7 +6,7 @@
 
 double computeHapticP (double velocity){
   static double previousPosition =0;
-  static double error = redDesiredPosition - redActualPosition;
+  static double error = (double) *redDesiredPosition - redActualPosition;
   static double kP = 1.5;
   static double s = 0;
   bool flagLimit = FALSE;
