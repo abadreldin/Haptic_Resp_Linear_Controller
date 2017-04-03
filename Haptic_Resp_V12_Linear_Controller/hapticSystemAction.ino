@@ -2,7 +2,7 @@
 #define strengthFactorRED 30
 void hapticSystemAction ( actions hapticSystem){
 
-  const static int hardWall = 230;
+  const static int hardWall = 220;
   static int redPwmSpeed = 0;
   static int bluePwmSpeed = 0;
   const static int totalForce = 500;
@@ -26,6 +26,7 @@ void hapticSystemAction ( actions hapticSystem){
             setRedMotorSpeed(redPwmSpeed, redMotorDir);
             setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);  
       }
+      
     break;
     //keeps the user inside of the square
     case INNERSQUARE:
@@ -150,9 +151,10 @@ void hapticSystemAction ( actions hapticSystem){
       }
     break;
     
-    //pushes the user outside of the square
+    //pushes the user from the outside of the square back to within the square boundary
     case HARDSQUARE:
-        if ((redActualPosition >= xBoundaryMax)&& (blueActualPosition <= yBoundaryMin)) {
+      
+       if ((redActualPosition >= xBoundaryMax)&& (blueActualPosition <= yBoundaryMin)) {
             redMotorDir = OUTWARD;
             redPwmSpeed = hardWall;//strengthFactor*(redActualPosition - xBoundaryMax);
             if (redPwmSpeed >255)
@@ -197,7 +199,7 @@ void hapticSystemAction ( actions hapticSystem){
             else
               setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
       }
-      else if ((redActualPosition <= xBoundaryMin)&& (blueActualPosition <= yBoundaryMin)) {
+      else if ((redActualPosition <= (xBoundaryMin- 2))&& (blueActualPosition <= (yBoundaryMin-2))) {
             redMotorDir = INWARD;
             redPwmSpeed = hardWall;//strengthFactor*(xBoundaryMin - redActualPosition);
             if (redPwmSpeed >255)
@@ -212,7 +214,8 @@ void hapticSystemAction ( actions hapticSystem){
             else
               setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
       }
-      else if ((redActualPosition <= (xBoundaryMin))&& (redActualPosition <= 40) && (blueActualPosition >= (yBoundaryMin -5)) && (blueActualPosition <= (yBoundaryMax +5))) {
+      
+      else if ((redActualPosition <= (xBoundaryMin))&& (redActualPosition <= 40) && (blueActualPosition >= (yBoundaryMin+3)) && (blueActualPosition <= (yBoundaryMax +3))) {
             redMotorDir = INWARD;
             redPwmSpeed = hardWall;//strengthFactorRED*(xBoundaryMin - redActualPosition);
             //redPwmSpeed = 255;
@@ -237,7 +240,7 @@ void hapticSystemAction ( actions hapticSystem){
             bluePwmSpeed = 0;
             setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
       }
-      else if ((blueActualPosition <= (yBoundaryMin))&& (blueActualPosition <= 40) && (redActualPosition >= xBoundaryMin) && (redActualPosition <= xBoundaryMax)) {
+      else if ((blueActualPosition <= (yBoundaryMin))&& (blueActualPosition <= 40) && (redActualPosition > xBoundaryMin) && (redActualPosition < xBoundaryMax)) {
             blueMotorDir = INWARD;
             bluePwmSpeed = hardWall;//strengthFactor*(yBoundaryMin - blueActualPosition);
             if (bluePwmSpeed >255)
@@ -249,7 +252,7 @@ void hapticSystemAction ( actions hapticSystem){
             redPwmSpeed = 0;
             setRedMotorSpeed(redPwmSpeed, redMotorDir);
       }
-      else if ((blueActualPosition >= (yBoundaryMax)) && (blueActualPosition >= 40) && (redActualPosition >= xBoundaryMin) && (redActualPosition <= xBoundaryMax)) {
+      else if ((blueActualPosition >= (yBoundaryMax)) && (blueActualPosition >= 40) && (redActualPosition > xBoundaryMin) && (redActualPosition < xBoundaryMax)) {
             blueMotorDir = OUTWARD;
             bluePwmSpeed = hardWall;//strengthFactor*(blueActualPosition - yBoundaryMax);
             if (bluePwmSpeed >255)
@@ -568,7 +571,7 @@ void hapticSystemAction ( actions hapticSystem){
       
        static double dx;
        static double dy;
-       static double r = 40;
+       static double r = 20;
        static double cx = 40;
        static double cy = 40;
        static double tempBlueSpeed;
@@ -593,15 +596,15 @@ void hapticSystemAction ( actions hapticSystem){
         if((redActualPosition > cx) && (blueActualPosition > cy)){
           dx = redActualPosition - cx;
           dy = blueActualPosition - cy;
-          if((dx*dx + dy*dy) <= (r*r)){
+          if((dx*dx + dy*dy) >= (r*r)){
             tempRedSpeed= redActualPosition;
             redPwmSpeed = redComputeHapticPath(tempRedSpeed);
-            redPwmSpeed = (int)(125 + redPwmSpeed/2.42); 
+            redPwmSpeed = (int)(150 + abs(redPwmSpeed)/2.42); 
             redMotorDir = OUTWARD;//OUTWARD;
 
             tempBlueSpeed= blueActualPosition;
             bluePwmSpeed = blueComputeHapticPath(tempBlueSpeed);
-            bluePwmSpeed = (int)(125 + bluePwmSpeed/2.42); 
+            bluePwmSpeed = (int)(150 + abs(bluePwmSpeed)/2.42); 
             blueMotorDir = OUTWARD;//OUTWARD;
             
             if(redPwmSpeed >250)
@@ -626,15 +629,15 @@ void hapticSystemAction ( actions hapticSystem){
         else if((redActualPosition <= cx) && (blueActualPosition > cy)){
           dx = cx - redActualPosition;
           dy = blueActualPosition - cy;
-          if((dx*dx + dy*dy) <= (r*r)){
+          if((dx*dx + dy*dy) >= (r*r)){
             tempRedSpeed= redActualPosition;
             redPwmSpeed = redComputeHapticPath(tempRedSpeed);
-            redPwmSpeed = (int)(125 + redPwmSpeed/2.42); 
+            redPwmSpeed = (int)(150 + redPwmSpeed/2.42); 
             redMotorDir = INWARD;//OUTWARD;
 
             tempBlueSpeed= blueActualPosition;
             bluePwmSpeed = blueComputeHapticPath(tempBlueSpeed);
-            bluePwmSpeed = (int)(125 + bluePwmSpeed/2.42); 
+            bluePwmSpeed = (int)(150 + bluePwmSpeed/2.42); 
             blueMotorDir = OUTWARD;//OUTWARD;
             
             if(redPwmSpeed >250)
@@ -659,16 +662,16 @@ void hapticSystemAction ( actions hapticSystem){
         else if((redActualPosition <= cx) && (blueActualPosition <= cy)){
           dx = cx - redActualPosition;
           dy = cy - blueActualPosition;
-          if((dx*dx + dy*dy) <= (r*r)){
+          if((dx*dx + dy*dy) >= (r*r)){
 
             tempRedSpeed= redActualPosition;
             redPwmSpeed = redComputeHapticPath(tempRedSpeed);
-            redPwmSpeed = (int)(125 + redPwmSpeed/2.42); 
+            redPwmSpeed = (int)(150 + redPwmSpeed/2.42); 
             redMotorDir = INWARD;//OUTWARD;
 
             tempBlueSpeed= blueActualPosition;
             bluePwmSpeed = blueComputeHapticPath(tempBlueSpeed);
-            bluePwmSpeed = (int)(125 + bluePwmSpeed/2.42); 
+            bluePwmSpeed = (int)(150 + bluePwmSpeed/2.42); 
             blueMotorDir = INWARD;//OUTWARD;
             
             if(redPwmSpeed >250)
@@ -693,15 +696,15 @@ void hapticSystemAction ( actions hapticSystem){
         else if ((redActualPosition > cx) && (blueActualPosition <= cy)) {
           dx = redActualPosition - cx;
           dy = cy - blueActualPosition;
-          if((dx*dx + dy*dy) <= (r*r)){
+          if((dx*dx + dy*dy) >= (r*r)){
             tempRedSpeed= redActualPosition;
             redPwmSpeed = redComputeHapticPath(tempRedSpeed);
-            redPwmSpeed = (int)(125 + redPwmSpeed/2.42); 
+            redPwmSpeed = (int)(150 + redPwmSpeed/2.42); 
             redMotorDir = OUTWARD;//OUTWARD;
 
             tempBlueSpeed= blueActualPosition;
             bluePwmSpeed = blueComputeHapticPath(tempBlueSpeed);
-            bluePwmSpeed = (int)(125 + bluePwmSpeed/2.42); 
+            bluePwmSpeed = (int)(150 + bluePwmSpeed/2.42); 
             blueMotorDir = INWARD;//OUTWARD;
      
             if(redPwmSpeed >250)
@@ -767,15 +770,15 @@ void hapticSystemAction ( actions hapticSystem){
     
     case TRACEBACK:
     delay(3000);
-        for(int pos=999; pos > 0; pos--){
+        for(int pos=99; pos > 0; pos--){
           redDesiredPosition[pos] = redActualPosition;
           blueDesiredPosition[pos] = blueActualPosition;
-          delay(10);
+          delay(50);
           Serial<< redDesiredPosition[pos] << blueDesiredPosition[pos] << "\n";
         }
         Serial << "RECORDED - PLAYING BACK";
-        delay(1000);
-        for(int pos=0; pos < 1000; pos++){
+        delay(10);
+        for(int pos=0; pos < 100; pos++){
           delay(10);
           Serial<< redDesiredPosition[pos] << blueDesiredPosition[pos] << "\n";
         }
@@ -784,7 +787,7 @@ void hapticSystemAction ( actions hapticSystem){
         redIndex =0;
 
      
-       while(blueIndex < 1000 && redIndex <1000){
+       while(blueIndex < 100 && redIndex <100){
             if(blueDesiredPosition[blueIndex] < (blueActualPosition + 2)  
            && blueDesiredPosition[blueIndex] > (blueActualPosition - 2) && redDesiredPosition[redIndex] < (redActualPosition + 2)
            && redDesiredPosition[redIndex] > (redActualPosition - 2) ){
@@ -804,17 +807,17 @@ void hapticSystemAction ( actions hapticSystem){
               static double REDtempPosition;
               
               REDtempPosition= redActualPosition;
-              redPwmSpeed = redComputeHapticPath(REDtempPosition);
+              redPwmSpeed = redComputeTracebackPath(REDtempPosition);
               
               if( redPwmSpeed > 0){
-                redPwmSpeed = (int)(70 + redPwmSpeed/2.42); 
+                redPwmSpeed = (int)(120 + redPwmSpeed/2.42); 
                 if (redPwmSpeed > 255)
                   setRedMotorSpeed( 255, INWARD);
                 else
                   setRedMotorSpeed( redPwmSpeed, INWARD);
               }
               else if (redPwmSpeed < 0){
-                redPwmSpeed = (int)(70 + abs(redPwmSpeed)/2.42);  
+                redPwmSpeed = (int)(120 + abs(redPwmSpeed)/2.42);  
                 if (redPwmSpeed > 255)
                   setRedMotorSpeed( 255, OUTWARD);
                 else
@@ -829,20 +832,20 @@ void hapticSystemAction ( actions hapticSystem){
             //double computeHapticPath (double actualPosition)
               static double BLUEtempPosition;
               BLUEtempPosition= blueActualPosition;
-              bluePwmSpeed = blueComputeHapticPath(BLUEtempPosition);
+              bluePwmSpeed = blueComputeTracebackPath(BLUEtempPosition);
               //Serial.println (bluePwmSpeed);
               //Serial.println (actualPositionblue);
         
               
               if( bluePwmSpeed > 0){
-                bluePwmSpeed = (int)(70 + bluePwmSpeed/2.42); 
+                bluePwmSpeed = (int)(120 + bluePwmSpeed/2.42); 
                 if (bluePwmSpeed > 255)
                   setBlueMotorSpeed( 255, INWARD);
                 else
                   setBlueMotorSpeed( bluePwmSpeed, INWARD);
               }
               else if (bluePwmSpeed < 0){
-                bluePwmSpeed = (int)(70 + abs(bluePwmSpeed)/2.42);  
+                bluePwmSpeed = (int)(120 + abs(bluePwmSpeed)/2.42);  
                 if (bluePwmSpeed > 255)
                   setBlueMotorSpeed( 255, OUTWARD);
                 else
@@ -860,16 +863,15 @@ void hapticSystemAction ( actions hapticSystem){
 
       
     case PATH:
-       if(blueDesiredPosition[index] < (blueActualPosition + 2) && blueDesiredPosition[index+1] != "\0" 
-       && blueDesiredPosition[index] > (blueActualPosition - 2) && redDesiredPosition[index] < (redActualPosition + 2)
-       && redDesiredPosition[index] > (redActualPosition - 2)
-       && redDesiredPosition[index] == redActualPosition && redDesiredPosition[index+1] != "\0"){
+       if(blueSetPath[index] < (blueActualPosition + 2) && blueSetPath[index+1] != "\0" 
+       && blueSetPath[index] > (blueActualPosition - 2) && redSetPath[index] < (redActualPosition + 2)
+       && redSetPath[index] > (redActualPosition - 2) && redSetPath[index+1] != "\0"){
           index++;
           setBlueMotorSpeed( 0, OFF);
           setRedMotorSpeed( 0, OFF);
           delay(500);
        }
-       else if(blueDesiredPosition[index+1] == "\0" && redDesiredPosition[index+1] == "\0"){
+       else if(blueSetPath[index+1] == "\0" && redSetPath[index+1] == "\0"){
           setBlueMotorSpeed( 0, OFF);
           setRedMotorSpeed( 0, OFF);
        }
@@ -1066,7 +1068,7 @@ void hapticSystemAction ( actions hapticSystem){
       blueTempActualPosition = blueActualPosition;
       blueVelocity = (double)(blueTempActualPosition - blueInitPosition)/(micros()-startTime)* 1000/12.5;
       
-      Serial.println(blueVelocity);
+      //Serial.println(blueVelocity);
       blueInitPosition = blueTempActualPosition;
 
      //execute haptic just reverse current direction
@@ -1180,7 +1182,33 @@ void hapticSystemAction ( actions hapticSystem){
 
 
 
-     
+    case BARRIER:
+      static const int barrier = 60;
+      if(redActualPosition > barrier){
+            tempRedSpeed= redActualPosition;
+            redPwmSpeed = redComputeHapticPath(tempRedSpeed);
+            redPwmSpeed = (int)(150 + abs(redPwmSpeed)/2.42); 
+            redMotorDir = OUTWARD;//OUTWARD;
+
+            tempBlueSpeed= blueActualPosition;
+            bluePwmSpeed = blueComputeHapticPath(tempBlueSpeed);
+            bluePwmSpeed = (int)(150 + abs(bluePwmSpeed)/2.42); 
+            if(blueActualPosition > 40)
+              blueMotorDir = OUTWARD;//WARD;
+            else if(blueActualPosition < 40)
+              blueMotorDir = INWARD;//WARD;
+            else
+              blueMotorDir = OFF;
+
+            setBlueMotorSpeed(bluePwmSpeed, blueMotorDir);
+            setRedMotorSpeed(redPwmSpeed, redMotorDir);
+      }
+      else{
+          setBlueMotorSpeed(0, OFF);
+          setRedMotorSpeed(0, OFF);
+        
+      }
+    break;
 
 
 

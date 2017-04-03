@@ -14,8 +14,8 @@ void setup() {
   //yBoundary = 50; //blue motor is y
   xBoundaryMin = 30; //red motor is x
   yBoundaryMin = 30; //blue motor is y
-  xBoundaryMax = 60; //red motor is x
-  yBoundaryMax = 60; //blue motor is y
+  xBoundaryMax = 50; //red motor is x
+  yBoundaryMax = 50; //blue motor is y
 
   // Start with motors off
   /*redPwmSpeed = 0;
@@ -50,13 +50,13 @@ void loop() {
           delay(2000);
           break;
           
-          case 2:
+          /*case 2:
           //Serial << "You have selected CIRCLE mode" << "\n";
           hapticSystem = CIRCLE;
           delay(2000);
-          break;
+          break;*/
           
-          case 10:
+          case 2:
           //Serial << "You have selected INCIRCLE mode" << "\n";
           hapticSystem = INCIRCLE;
           delay(2000);
@@ -83,11 +83,11 @@ void loop() {
           index =0;
           break;
 
-          case 7:
+          /*case 7:
           //Serial << "You have selected HILL mode" << "\n";
           hapticSystem = HILL;
           delay(2000);
-          break;
+          break;*/
 
           case 8:
           //Serial << "You have selected INNERSQUARE mode" << "\n";
@@ -123,6 +123,10 @@ void loop() {
           //Serial << "You have selected OFF mode" << "\n";
           hapticSystem = MOTOROFF;
           delay(2000);
+          break;
+
+          case 7:
+          hapticSystem = BARRIER;
           break;
         
           

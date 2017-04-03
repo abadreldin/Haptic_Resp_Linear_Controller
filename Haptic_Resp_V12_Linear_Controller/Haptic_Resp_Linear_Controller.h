@@ -1,6 +1,6 @@
 #define MAX 256
 #define MIN 0
-#define totalForce 150;
+
 #define totalblueForce 150;
 #define FALSE 0
 #define TRUE 1
@@ -108,10 +108,13 @@ typedef enum {
   HILL,
   MOTOROFF,
   INNERSQUARE,
-  OUTERSQUARE,
+  HARDSQUARE,
   BUTTON,
   CORNSTARCHWALL,
-  DIAGONAL
+  DIAGONAL,
+  INCIRCLE,
+  PATHTRACE,
+  BARRIER
 }actions;
 
 actions hapticSystem =  MOTOROFF;
@@ -126,8 +129,8 @@ double redVelocity = 0, redPastVelocity = 0;
 double blueVelocity = 0, bluePastVelocity = 0;
 unsigned long startTime;
 int redActualPosition, redTimeElapsed;
-int redDesiredPosition[] = {20,70, 60, 25};
-int blueDesiredPosition[] = {20,30, 60,70};
+int redSetPath[] = {40, 20,70, 60, 25};
+int blueSetPath[] = {40, 20,30, 60,70};
 int redInitialPosition;
 int blueActualPosition, TimeElapsed, initialPosition;
 double acutalPosition;
@@ -138,7 +141,12 @@ bool hapticFeedback = 0;
 
 int printCounter =0;
 int index =0;
+int blueIndex =0;
+int redIndex =0;
 
+int path[2][1000];
+int redDesiredPosition[1000];
+int blueDesiredPosition[1000];
 /////////////////////////////////////////////////////////////////////////////////////////
 
 void setPwmFrequency(int pin, int divisor);
@@ -147,7 +155,8 @@ void setBlueMotorSpeed( int bluePwmSpeed, directions blueMotor);
 void motorSetup (void);
 void timerSetup (void);
 void decoderSetup (void);
-double computePosition ();
+double computePositionBlue ();
+double computePositionRed ();
 void readSerialCommand();
 void findStartPosition();
 void hapticSystemAction ( actions hapticSystem);

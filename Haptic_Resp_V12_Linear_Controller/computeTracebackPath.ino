@@ -11,13 +11,13 @@
 #define timeInterrupt 10
 
 
-double redComputeHapticPath (double actualPosition){
+double redComputeTracebackPath (double actualPosition){
   //static double previousPosition;
   static double s=0;
   static double derivative;
   static double error;
 
-  error = redSetPath[index] - actualPosition;
+  error = redDesiredPosition[redIndex] - actualPosition;
   s += error;
   s *= KI;
   s += error*KP;
@@ -27,13 +27,13 @@ double redComputeHapticPath (double actualPosition){
   return s;  
 }
 
-double blueComputeHapticPath (double actualPosition){
+double blueComputeTracebackPath (double actualPosition){
   //static double previousPosition;
   static double s=0;
   static double derivative;
   static double error;
 
-  error = blueSetPath[index] - actualPosition;
+  error = blueDesiredPosition[blueIndex] - actualPosition;
   s += error;
   s *= KI;
   s += error*KP;
