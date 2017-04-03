@@ -1,15 +1,15 @@
 void findStartPosition (){
-  static int speedCounter =0;
+  static int speedCounter =100;
   
 // code pushes Red motor to one corner, until not reading any change in position (reached boundary), 
 // then pushes blue motor to end until not reading any change in position, then press reset on decoder
 
 //RED MOTOR BOUNDS - X
 
-  while(speedCounter < 250){
+  while(speedCounter < 220){
     setRedMotorSpeed(speedCounter, OUTWARD);
     speedCounter++;
-    delay(5);
+    delay(3);
   }
   /*int pastPosition = redActualPosition;
   Serial.println (pastPosition);
@@ -22,7 +22,7 @@ void findStartPosition (){
     delay(200);
     currentPosition = redActualPosition;
   }*/
-  delay(500);
+  delay(200);
   digitalWrite(redResetPin,LOW);
   delay(10);
   digitalWrite(redResetPin,HIGH);
@@ -31,8 +31,8 @@ void findStartPosition (){
   //Serial.println ("FINISHED INITIALIZATION");
 
 //BLUE MOTOR BOUNDS - Y
-  speedCounter = 0;
-  while(speedCounter < 250){
+  speedCounter = 170;
+  while(speedCounter < 255){
     setBlueMotorSpeed(speedCounter, OUTWARD);
     speedCounter++;
     delay(5);
@@ -50,7 +50,7 @@ void findStartPosition (){
   delay(500);
   setBlueMotorSpeed(0, OFF);
   digitalWrite(blueResetPin,LOW);
-  delay(100);
+  delay(10);
   digitalWrite(blueResetPin,HIGH);
   digitalWrite(blueLatchPin, HIGH); 
 }

@@ -33,13 +33,13 @@ void setup() {
   hapticSystemAction (hapticSystem);
   //Serial.println("Please select a mode: SQUARE (1), CIRCLE (2), CORNER (3),");
   //Serial.println("TRACEBACK (4), PATH (5), WELL (6), HILL (7)");   
-  //Serial.println("INNER SQUARE (8), OUTER SQUARE (9), CORNSTARCH WALL (10), BUTTON (11)");
+  //Serial.println("INNER SQUARE (8), OUTER SQUARE (9), CORNSTARCH WALL (10), BUTTON (11), DIAGONAL (12)");
   
   }
 
 void loop() {
-  //setRedMotorSpeed(150, OUTWARD);
-  //readSerialCommand();
+  
+
  
   if (Serial.available()>0){
     buf[i]= Serial.read(); 
@@ -47,7 +47,7 @@ void loop() {
     if (int(buf[i])==13 || int(buf[i])==11 ){  //If Carriage return has been reached
      
       int result=atoi(buf);
-      if (result > 10 || result < 1){
+      if (result > 100 || result < 1){
         Serial << " ERROR, please select a valid number" << "\n";
       }
       else{
@@ -117,7 +117,19 @@ void loop() {
           hapticSystem = CORNSTARCHWALL;
           delay(2000);
           break;
+
+          case 12:
+          //Serial << "You have selected DIAGONAL mode" << "\n";
+          hapticSystem = DIAGONAL;
+          delay(2000);
+          break;
           
+          case 99:
+          //Serial << "You have selected OFF mode" << "\n";
+          hapticSystem = MOTOROFF;
+          delay(2000);
+          break;
+
           default:
           //Serial << "You have selected OFF mode" << "\n";
           hapticSystem = MOTOROFF;
@@ -140,6 +152,7 @@ void loop() {
     hapticSystemAction (hapticSystem);
     
     printCounter ++;
+    Serial << redActualPosition <<" " << blueActualPosition << "\n";
 }
 
 ISR(TIMER1_COMPA_vect){//timer1 interrupt 2kHz calculates position

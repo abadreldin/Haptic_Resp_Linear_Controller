@@ -108,7 +108,8 @@ typedef enum {
   INNERSQUARE,
   OUTERSQUARE,
   BUTTON,
-  CORNSTARCHWALL
+  CORNSTARCHWALL,
+  DIAGONAL
 }actions;
 
 actions hapticSystem =  MOTOROFF;
@@ -122,8 +123,11 @@ double displacementRed, displacementBlue;
 double redVelocity = 0, redPastVelocity = 0;
 double blueVelocity = 0, bluePastVelocity = 0;
 unsigned long startTime;
-int redActualPosition, redTimeElapsed, redDesiredPosition, redInitialPosition;
-int blueActualPosition, TimeElapsed, desiredPosition, initialPosition;
+int redActualPosition, redTimeElapsed;
+int redDesiredPosition[] = {20,70, 60, 25};
+int blueDesiredPosition[] = {20,30, 60,70};
+int redInitialPosition;
+int blueActualPosition, TimeElapsed, initialPosition;
 double acutalPosition;
 int xBoundaryMin = 0, yBoundaryMin=0;
 int xBoundaryMax = 0, yBoundaryMax=0;
@@ -145,5 +149,6 @@ void readSerialCommand();
 void findStartPosition();
 void hapticSystemAction ( actions hapticSystem);
 void setMotorSpeedHaptic (double motorVelocity);
+void checkPosition (void);
 
 template<class T> inline Print &operator <<(Print &obj, T arg) { obj.print(arg); return obj; }
