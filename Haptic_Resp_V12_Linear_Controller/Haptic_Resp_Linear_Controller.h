@@ -79,10 +79,10 @@
 #define blueMotorCoil2A 11 //grey
 #define blueMotorCoil2B 10 //purple
 
-#define redMotorEn 2
+#define redMotorEn 4
 #define redMotorCoil1A 6
 #define redMotorCoil1B 5
-#define redMotorCoil2A 4
+#define redMotorCoil2A 2
 #define redMotorCoil2B 3
 
 ////////////////////////////////////////////////////////////////////////////////////
