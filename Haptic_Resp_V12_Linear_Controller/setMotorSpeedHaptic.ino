@@ -1,5 +1,0 @@
-void setMotorSpeedHaptic (double motorVelocity){
- 
-
-}
-
