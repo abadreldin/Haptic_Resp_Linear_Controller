@@ -16,6 +16,8 @@ class GraphData:
 
         self.fig, self.ax = plt.subplots()
 
+##        self.data = parse(ser.readline())
+
         self.x_axis1.append(0)
         self.y_axis1.append(0)
 
