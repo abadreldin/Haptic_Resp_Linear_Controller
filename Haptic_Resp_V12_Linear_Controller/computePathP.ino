@@ -10,7 +10,7 @@
 
 #define timeInterrupt 10
 
-int index =0;
+
 double redComputeHapticPath (double actualPosition){
   //static double previousPosition;
   static double s=0;

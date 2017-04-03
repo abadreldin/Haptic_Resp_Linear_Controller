@@ -2,6 +2,8 @@
 #define MIN 0
 #define totalForce 150;
 #define totalblueForce 150;
+#define FALSE 0
+#define TRUE 1
 
 //decoder mirrors arduino pins
 #define redPositionPin7 36 //D7
@@ -117,7 +119,7 @@ actions hapticSystem =  MOTOROFF;
 
 int i=0;
 char buf[3];
-
+bool finished= FALSE;
 
 double displacementRed, displacementBlue;
 double redVelocity = 0, redPastVelocity = 0;
@@ -135,6 +137,7 @@ double sum = 0;
 bool hapticFeedback = 0;
 
 int printCounter =0;
+int index =0;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
