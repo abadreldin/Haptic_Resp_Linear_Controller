@@ -29,11 +29,11 @@ void setup() {
   sei();//allow interrupts 
   //cli();//stop interrupts
   findStartPosition();
-  hapticSystem = MOTOROFF;
+  hapticSystem = CIRCLE;
   hapticSystemAction (hapticSystem);
-  //Serial.println("Please select a mode: SQUARE (1), CIRCLE (2), CORNER (3),");
+  //Serial.println("Please select a mode: SQUARE (1), CIRCLE (2), CORNSTARCH WALL (3),");
   //Serial.println("TRACEBACK (4), PATH (5), WELL (6), HILL (7)");   
-  //Serial.println("INNER SQUARE (8), OUTER SQUARE (9), CORNSTARCH WALL (10), BUTTON (11), DIAGONAL (12)");
+  //Serial.println("INNER SQUARE (8), HARD SQUARE (9), INCIRCLE (10), BUTTON (11), DIAGONAL (12)");
   
   }
 
@@ -42,15 +42,7 @@ void loop() {
 
  
   if (Serial.available()>0){
-    buf[i]= Serial.read(); 
-   
-    if (int(buf[i])==13 || buf[i]== '\n' ){  //If Carriage return has been reached
-     
-      int result=atoi(buf);
-      if (result > 100 || result < 1){
-        Serial << " ERROR, please select a valid number" << "\n";
-      }
-      else{
+    int result = Serial.read() - '0';
         switch(result){
           case 1:
           //Serial << "You have selected SQUARE mode" << "\n";
@@ -64,9 +56,9 @@ void loop() {
           delay(2000);
           break;
           
-          case 3:
-          //Serial << "You have selected CORNER mode" << "\n";
-          hapticSystem = CORNER;
+          case 10:
+          //Serial << "You have selected INCIRCLE mode" << "\n";
+          hapticSystem = INCIRCLE;
           delay(2000);
           break;
           
@@ -88,6 +80,7 @@ void loop() {
           //Serial << "You have selected WELL mode" << "\n";
           hapticSystem = WELL;
           delay(2000);
+          index =0;
           break;
 
           case 7:
@@ -103,8 +96,8 @@ void loop() {
           break;
 
           case 9:
-          //Serial << "You have selected OUTERSQUARE mode" << "\n";
-          hapticSystem = OUTERSQUARE;
+          //Serial << "You have selected HARDSQUARE mode" << "\n";
+          hapticSystem = HARDSQUARE;
           delay(2000);
           break;
 
@@ -114,7 +107,7 @@ void loop() {
           delay(2000);
           break;*/
 
-          case 10:
+          case 3:
           //Serial << "You have selected CORNSTARCH WALL mode" << "\n";
           hapticSystem = CORNSTARCHWALL;
           delay(2000);
@@ -131,30 +124,12 @@ void loop() {
           hapticSystem = MOTOROFF;
           delay(2000);
           break;
-
-          default:
-          //Serial << "You have selected OFF mode" << "\n";
-          hapticSystem = MOTOROFF;
-          delay(2000);
-          break;
         
           
         }
-      }
-    
-        
-      for(int x=0;x<=3;x++){
-        buf[x]=' ';
-      }
-      i=0;  //start over again
-    } //if enter
-     i++; 
-    } //IF Serial.available
-
+  }
     hapticSystemAction (hapticSystem);
-    
-    
-    //printCounter ++;
+ 
     if (micros()%50000 < 333) // if (millis()% 60 <10)
       Serial << redActualPosition <<" " << blueActualPosition << "\n";
 }

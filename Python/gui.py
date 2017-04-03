@@ -7,7 +7,7 @@ import functions as f
 import os
 
 import serial
-ser = serial.Serial(port = 'COM7',\
+ser = serial.Serial(port = 'COM8',\
                     baudrate = 9600,\
                     timeout = None,\
                     xonxoff=False,\
@@ -15,8 +15,9 @@ ser = serial.Serial(port = 'COM7',\
                     dsrdtr=False)
 def Main():
     os.system('cls')
-    print('Please select a mode:    SQUARE (1), CIRCLE (2), CORNER (3),')
-    print('                         TRACEBACK (4), PATH (5), WELL (6), HILL (7)')
+    print('Please select a mode:    SQUARE (1), CIRCLE (2), CORNSTARCH WALL (3), TRACEBACK (4)')
+    print('                         PATH (5), WELL (6), HILL (7), INNER SQUARE (8)')
+    print('                         HARD SQUARE (9), DIAGONAL (12)')
     state = input('Mode: ')
 
     serial_input = bytes(state, 'utf-8')
@@ -29,7 +30,9 @@ def Main():
         elif int(state) == 2:
             print("state: CIRCLE")
         elif int(state) == 3:
-            print("state: CORNER")
+            print("state: CORNSTARCHWALL")
+        ##elif int(state) == 3:
+        ##    print("state: CORNER")
         elif int(state) == 4:
             print("state: TRACEBACK")
         elif int(state) == 5:
@@ -41,9 +44,7 @@ def Main():
         elif int(state) == 8:
             print("state: INNERSQUARE")
         elif int(state) == 9:
-            print("state: OUTERSQUARE")
-        elif int(state) == 10:
-            print("state: CORNSTARCH WALL")
+            print("state: HARDSQUARE")
         elif int(state) == 11:
             print("state: BUTTON")
         elif int(state) == 12:
