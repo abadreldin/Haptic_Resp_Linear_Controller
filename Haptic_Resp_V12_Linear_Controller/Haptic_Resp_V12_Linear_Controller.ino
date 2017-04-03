@@ -44,7 +44,7 @@ void loop() {
   if (Serial.available()>0){
     buf[i]= Serial.read(); 
    
-    if (int(buf[i])==13 || int(buf[i])==11 ){  //If Carriage return has been reached
+    if (int(buf[i])==13 || buf[i]== '\n' ){  //If Carriage return has been reached
      
       int result=atoi(buf);
       if (result > 100 || result < 1){
@@ -151,11 +151,13 @@ void loop() {
 
     hapticSystemAction (hapticSystem);
     
-    printCounter ++;
-    Serial << redActualPosition <<" " << blueActualPosition << "\n";
+    
+    //printCounter ++;
+    if (micros()%50000 < 333) // if (millis()% 60 <10)
+      Serial << redActualPosition <<" " << blueActualPosition << "\n";
 }
 
-ISR(TIMER1_COMPA_vect){//timer1 interrupt 2kHz calculates position
+ISR(TIMER5_COMPA_vect){//timer1 interrupt 2kHz calculates position
     blueActualPosition = computePositionBlue();
     redActualPosition = computePositionRed();
 }
