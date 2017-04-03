@@ -7,7 +7,7 @@ import functions as f
 import os
 
 import serial
-ser = serial.Serial(port = 'COM6',\
+ser = serial.Serial(port = 'COM8',\
                     baudrate = 9600,\
                     timeout = None,\
                     xonxoff=False,\

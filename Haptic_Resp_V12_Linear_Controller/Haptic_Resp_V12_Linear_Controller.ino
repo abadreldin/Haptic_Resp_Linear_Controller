@@ -79,6 +79,8 @@ void loop() {
           case 5:
           //Serial << "You have selected PATH mode" << "\n";
           hapticSystem = PATH;
+          finished= FALSE;
+          index = 0;
           delay(2000);
           break;
 
