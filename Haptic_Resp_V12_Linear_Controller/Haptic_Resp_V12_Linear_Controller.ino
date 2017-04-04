@@ -10,28 +10,28 @@ void setup() {
   
   //xBoundary = 50; //red motor is x
   //yBoundary = 50; //blue motor is y
-  xBoundaryMin = 30; //red motor is x
-  yBoundaryMin = 30; //blue motor is y
-  xBoundaryMax = 50; //red motor is x
-  yBoundaryMax = 50; //blue motor is y
+  xBoundaryMin = 25; //red motor is x
+  yBoundaryMin = 25; //blue motor is y
+  xBoundaryMax = 55; //red motor is x
+  yBoundaryMax = 55; //blue motor is y
 
-  // Start with motors off
-  /*redPwmSpeed = 0;
-  redMotorDir = OFF;
-  setRedMotorSpeed(redPwmSpeed, redMotorDir);
-  */
-  //bluePwmSpeed = 250;
-  //blueMotorDir = OUTWARD;
-  //setBlueMotorSpeed(250, blueMotorDir);
+  xBoundaryMin2 = 15; //red motor is x
+  yBoundaryMin2 = 15; //blue motor is y
+  xBoundaryMax2 = 65; //red motor is x
+  yBoundaryMax2 = 65; //blue motor is y
 
   sei();//allow interrupts 
   //cli();//stop interrupts
   findStartPosition();
-  hapticSystem = CIRCLE;
+  hapticSystem = MOTOROFF;
   hapticSystemAction (hapticSystem);
-  //Serial.println("Please select a mode: SQUARE (1), CIRCLE (2), CORNSTARCH WALL (3),");
-  //Serial.println("TRACEBACK (4), PATH (5), WELL (6), HILL (7)");   
-  //Serial.println("INNER SQUARE (8), HARD SQUARE (9), INCIRCLE (10), BUTTON (11), DIAGONAL (12)");
+
+  index=0;
+  InputRed = redActualPosition;
+  InputBlue = blueActualPosition;
+  SetpointRed = redSetPath[index];
+  SetpointBlue= blueSetPath[index];
+  
   }
 
 void loop() {
@@ -45,21 +45,23 @@ void loop() {
           delay(2000);
           break;
           
-          /*case 2:
+          case 2:
           //Serial << "You have selected CIRCLE mode" << "\n";
           hapticSystem = CIRCLE;
           delay(2000);
-          break;*/
-          
-          case 2:
-          //Serial << "You have selected INCIRCLE mode" << "\n";
-          hapticSystem = INCIRCLE;
-          delay(2000);
           break;
+          
+          
+          //setupPosition(40,40);
+
           
           case 4:
           //Serial << "You have selected TRACEBACK mode" << "\n";
           hapticSystem = TRACEBACK;
+         // setupPosition(40,40);
+          myPIDRED.SetMode(AUTOMATIC);
+          myPIDBLUE.SetMode(AUTOMATIC);
+
           delay(2000);
           break;
 
@@ -68,6 +70,11 @@ void loop() {
           hapticSystem = PATH;
           finished= FALSE;
           index = 0;
+          
+
+          //turn the PID on
+          myPIDRED.SetMode(AUTOMATIC);
+          myPIDBLUE.SetMode(AUTOMATIC);
           delay(2000);
           break;
 
@@ -78,51 +85,43 @@ void loop() {
           index =0;
           break;
 
-          /*case 7:
+          case 7:
           //Serial << "You have selected HILL mode" << "\n";
-          hapticSystem = HILL;
+          hapticSystem = DIAGONALALLEY;
           delay(2000);
-          break;*/
+          break;
 
           case 8:
           //Serial << "You have selected INNERSQUARE mode" << "\n";
           hapticSystem = INNERSQUARE;
+          //setupPosition(40,40);
           delay(2000);
           break;
 
           case 9:
           //Serial << "You have selected HARDSQUARE mode" << "\n";
           hapticSystem = HARDSQUARE;
+          //setupPosition(40,40);
           delay(2000);
           break;
 
-          /*case 10:
-          Serial << "You have selected BUTTON mode" << "\n";
-          hapticSystem = BUTTON;
-          delay(2000);
-          break;*/
 
           case 3:
           //Serial << "You have selected CORNSTARCH WALL mode" << "\n";
           hapticSystem = CORNSTARCHWALL;
-          delay(2000);
-          break;
-
-          case 12:
-          //Serial << "You have selected DIAGONAL mode" << "\n";
-          hapticSystem = DIAGONAL;
+          //setupPosition(0,0);
           delay(2000);
           break;
           
-          case 99:
+          case 0:
           //Serial << "You have selected OFF mode" << "\n";
           hapticSystem = MOTOROFF;
           delay(2000);
           break;
 
-          case 7:
+          /*case 7:
           hapticSystem = BARRIER;
-          break;
+          break;*/
         
           
         }
