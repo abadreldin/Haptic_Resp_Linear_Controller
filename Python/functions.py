@@ -7,7 +7,7 @@ class GraphData:
 ##  create two queues with max length for x and y data
     def __init__(self):
         tailLength1 = 1
-        tailLength2 = 4
+        tailLength2 = 5
         self.x_axis1 = deque(maxlen = tailLength1)
         self.y_axis1 = deque(maxlen = tailLength1)
 
@@ -28,7 +28,7 @@ class GraphData:
         self.ax.set_ylim(84, 0)
 
         self.line1, = self.ax.plot(self.x_axis1, self.y_axis1, "ro", markersize = 8)
-        self.line2, = self.ax.plot(self.x_axis2, self.y_axis2, "r-", markersize = 1)
+        self.line2, = self.ax.plot(self.x_axis2, self.y_axis2, "r-", markersize =1)
 
         plt.show(block = False)
         

@@ -6,12 +6,12 @@ void findStartPosition (){
 
 //RED MOTOR BOUNDS - X
 
-  while(speedCounter < 220){
+  while(speedCounter < 250){
     setRedMotorSpeed(speedCounter, OUTWARD);
     speedCounter++;
     delay(3);
   }
-  delay(200);
+  delay(500);
   digitalWrite(redResetPin,LOW);
   delay(10);
   digitalWrite(redResetPin,HIGH);
@@ -19,8 +19,8 @@ void findStartPosition (){
   setRedMotorSpeed(0, OFF);
 
 //BLUE MOTOR BOUNDS - Y
-  speedCounter = 170;
-  while(speedCounter < 255){
+  speedCounter = 100;
+  while(speedCounter < 240){
     setBlueMotorSpeed(speedCounter, OUTWARD);
     speedCounter++;
     delay(5);

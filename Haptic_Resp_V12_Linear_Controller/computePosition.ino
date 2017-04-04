@@ -42,18 +42,6 @@ double computePositionRed (){
       positionArr[7] = 1;
   else if (digitalRead(redPositionPin7)==LOW)
       positionArr[7] = 0;
-       
-  //FOR DEBUGGING PURPOSES      
-  /*Serial.println (positionArr[8]);
-  Serial.println (positionArr[7]);
-  Serial.println (positionArr[6]);
-  Serial.println (positionArr[5]);
-  Serial.println (positionArr[4]);
-  Serial.println (positionArr[3]);
-  Serial.println (positionArr[2]);
-  Serial.println (positionArr[1]);
-  Serial.println (positionArr[0]);*/
-  //Serial.println (desiredPosition);
 
   for(i=7; i>=0; i--){
     if (positionArr[i]==1)
@@ -111,18 +99,6 @@ double computePositionBlue (){
       positionArr[7] = 1;
   else if (digitalRead(bluePositionPin7)==LOW)
       positionArr[7] = 0;
-       
-  //FOR DEBUGGING PURPOSES      
-  /*Serial.println (positionArr[8]);
-  Serial.println (positionArr[7]);
-  Serial.println (positionArr[6]);
-  Serial.println (positionArr[5]);
-  Serial.println (positionArr[4]);
-  Serial.println (positionArr[3]);
-  Serial.println (positionArr[2]);
-  Serial.println (positionArr[1]);
-  Serial.println (positionArr[0]);*/
-  //Serial.println (desiredPosition);
 
   for(i=7; i>=0; i--){
     if (positionArr[i]==1)
