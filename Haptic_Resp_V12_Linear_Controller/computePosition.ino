@@ -60,6 +60,10 @@ double computePositionRed (){
       redEncoderPos = redEncoderPos + powerToTwo[i];
   }
   digitalWrite(redLatchPin, HIGH);
+
+  if(redEncoderPos >150)
+    return 0;
+    
   return redEncoderPos;
 }
 
@@ -125,5 +129,9 @@ double computePositionBlue (){
       blueEncoderPos = blueEncoderPos + powerToTwo[i];
   }
   digitalWrite(blueLatchPin, HIGH);
+  
+  if(blueEncoderPos >150)
+    return 0;
+    
   return blueEncoderPos;
 }

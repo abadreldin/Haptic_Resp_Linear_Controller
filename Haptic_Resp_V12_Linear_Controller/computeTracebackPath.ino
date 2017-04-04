@@ -11,14 +11,14 @@
 #define timeInterrupt 10
 
 
-double redComputeTracebackPath (double actualPosition){
+double redComputeTracebackPath (double actualPosition, int desiredPosition){
   //static double previousPosition;
   static double s=0;
   static double derivative;
   static double error;
 
-  error = redDesiredPosition[redIndex] - actualPosition;
-  s += error;
+  error = desiredPosition - actualPosition;
+  s += 5*error;
   s *= KI;
   s += error*KP;
   derivative = error/timeInterrupt*1000; //assuming the timer is in milliseconds, and I want velocity in rad/s in 
@@ -27,14 +27,14 @@ double redComputeTracebackPath (double actualPosition){
   return s;  
 }
 
-double blueComputeTracebackPath (double actualPosition){
+double blueComputeTracebackPath (double actualPosition, int desiredPosition){
   //static double previousPosition;
   static double s=0;
   static double derivative;
   static double error;
 
-  error = blueDesiredPosition[blueIndex] - actualPosition;
-  s += error;
+  error = desiredPosition - actualPosition;
+  s += 5*error;
   s *= KI;
   s += error*KP;
   derivative = error/timeInterrupt*1000; //assuming the timer is in milliseconds, and I want velocity in rad/s in 

@@ -7,8 +7,6 @@ void setup() {
   timerSetup();
   
   Serial.begin (9600);
-
-  //setPwmFrequency(9, 1);
   
   //xBoundary = 50; //red motor is x
   //yBoundary = 50; //blue motor is y
@@ -34,15 +32,12 @@ void setup() {
   //Serial.println("Please select a mode: SQUARE (1), CIRCLE (2), CORNSTARCH WALL (3),");
   //Serial.println("TRACEBACK (4), PATH (5), WELL (6), HILL (7)");   
   //Serial.println("INNER SQUARE (8), HARD SQUARE (9), INCIRCLE (10), BUTTON (11), DIAGONAL (12)");
-  
   }
 
 void loop() {
-  
 
- 
   if (Serial.available()>0){
-    int result = Serial.read() - '0';
+    result = Serial.read() - '0';
         switch(result){
           case 1:
           //Serial << "You have selected SQUARE mode" << "\n";
@@ -134,10 +129,9 @@ void loop() {
   }
     hapticSystemAction (hapticSystem);
  
-    if (micros()%50000 < 333) // if (millis()% 60 <10)
-      Serial << redActualPosition <<" " << blueActualPosition << "\n";
+    //if (micros()%50000 < 333) // if (millis()% 60 <10)
+      //Serial << redActualPosition <<" " << blueActualPosition << "\n";
 }
-
 ISR(TIMER5_COMPA_vect){//timer1 interrupt 2kHz calculates position
     blueActualPosition = computePositionBlue();
     redActualPosition = computePositionRed();

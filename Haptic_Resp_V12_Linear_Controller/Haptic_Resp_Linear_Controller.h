@@ -74,18 +74,33 @@
 #define timerInterrupt 0.000125
 #define degToRad 0.01745329251
 
-
-#define blueMotorEn 7 
+//original
+/*#define blueMotorEn 7 
 #define blueMotorCoil1A 9 //black
 #define blueMotorCoil1B 8 //white
 #define blueMotorCoil2A 11 //grey
-#define blueMotorCoil2B 10 //purple
+#define blueMotorCoil2B 10 //purple*/
 
-#define redMotorEn 4
+//test- better config
+/*#define blueMotorEn 7 
+#define blueMotorCoil1A 11 //black
+#define blueMotorCoil1B 10 //white
+#define blueMotorCoil2A 9 //grey
+#define blueMotorCoil2B 8 //purple*/
+
+//original
+/*#define redMotorEn 4
 #define redMotorCoil1A 6
 #define redMotorCoil1B 5
 #define redMotorCoil2A 2
-#define redMotorCoil2B 3
+#define redMotorCoil2B 3*/
+
+//for testing -- works very well
+#define redMotorEn 4
+#define redMotorCoil1A 2
+#define redMotorCoil1B 3
+#define redMotorCoil2A 6
+#define redMotorCoil2B 5
 
 ////////////////////////////////////////////////////////////////////////////////////
 typedef enum {
@@ -119,7 +134,7 @@ typedef enum {
 
 actions hapticSystem =  MOTOROFF;
 ////////////////////////////////////////////////////////////////////////////////////
-
+int result=99;
 int i=0;
 char buf[3];
 bool finished= FALSE;
@@ -129,8 +144,8 @@ double redVelocity = 0, redPastVelocity = 0;
 double blueVelocity = 0, bluePastVelocity = 0;
 unsigned long startTime;
 int redActualPosition, redTimeElapsed;
-int redSetPath[] = {40, 20,70, 60, 25};
-int blueSetPath[] = {40, 20,30, 60,70};
+int redSetPath[] = {40, 20,70, 60, 25, 0};
+int blueSetPath[] = {40, 20,30, 60,70, 0};
 int redInitialPosition;
 int blueActualPosition, TimeElapsed, initialPosition;
 double acutalPosition;
@@ -149,9 +164,8 @@ int redDesiredPosition[1000];
 int blueDesiredPosition[1000];
 /////////////////////////////////////////////////////////////////////////////////////////
 
-void setPwmFrequency(int pin, int divisor);
-void setRedMotorSpeed( int redPwmSpeed, directions redMotor);
-void setBlueMotorSpeed( int bluePwmSpeed, directions blueMotor);
+void setRedMotorSpeed( int redPwm, directions redMotor);
+void setBlueMotorSpeed( int bluePwm, directions blueMotor);
 void motorSetup (void);
 void timerSetup (void);
 void decoderSetup (void);
